@@ -1,59 +1,55 @@
-var $ = require('jquery');
-var Contacts = require('./collections/contacts');
-var Contact = require('./models/contact');
+var $ = require("jquery");
+var cars = require("./collections/cars");
+var Car = require("./models/car");
+var carTemplate = require('../templates/cars.html');
 
-var $form = $("#contactForm");
+var $form = $("#carForm");
 
 
 
-$form.on('submit', function (e) {
+$form.on("submit", function (e) {
   e.preventDefault();
 
-  var contact = new Contact({
-    objectId: 'SqG5efMJKl'
+  var car = new Car({
+
   });
 
-  contact.set({
-    'first_name': $("#fname").val(),
-    'last_name': $("#lname").val(),
-    'email': $("#email").val(),
-    'phone': $("#phone").val(),
-    'city': $("#city").val(),
-    'state': $("#state").val()
+  car.set({
+    "make": $("#make").val(),
+    "model": $("#model").val(),
+    "color": $("#color").val(),
+    "year": $("#year").val(),
+    "url": $("#url").val(),
   });
-
-  
-
-  $("#showContact").html(contact.get('email'));
-  
-  console.log(contact);
-  contact.save();
+  //car.save();
 });
 
+// UPDATE CAR INFO \/\/\/
 
-
-// var contact = new Contact({
-//   objectId: 'qI5k9irpHN'
+// var car = new car({
+//   objectId: ""
 // });
 
-// contact.set('first_name', 'John');
-// contact.save();
+// car.set("ENTER ATTR", "");
+// car.save();
 
-// var contact = new Contact();
-// contact.set({
-//   'first_name': 'Mark',
-//   'last_name': 'Medeiros',
-//   'phone': '702-555-1111',
-//   'city': 'Las Vegas',
-//   'state': 'NV'
+// var car = new car();
+// car.set({
+//   "make": "",
+//   "model": "",
+//   "color": "",
+//   "year": "",
 // });
-// contact.save();
+// car.save();
 
 
 
 
-// Contacts.fetch({
-//   success: function (contacts) {
-    
-//   }
-// })
+cars.fetch({
+ success: function (cars) {
+  console.log(cars.toJSON());
+    var data = {cars:cars.toJSON()};
+    console.log("template", carTemplate(data));
+    $("#showcar").html(carTemplate(data)); 
+   }
+ })
